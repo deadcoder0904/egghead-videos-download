@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import os
 import urllib2
 import pprint
+import subprocess
 
 class bcolors:
   HEADER = '\033[95m'
@@ -35,9 +36,10 @@ print(bcolors.OKBLUE + "Downloading "+ str(c) + " files ... " + bcolors.ENDC + "
 temp = open('temp.egghead', 'a')
 temp.write(s)
 
-os.system("youtube-dl -a temp.egghead")
-os.system("rm -rf *.egghead")
+subprocess.call(["youtube-dl","-a","temp.egghead"])
 
 for filename in os.listdir("."):
 	if filename.find(".mp4") is not -1:
 		os.rename(filename, filename[:filename.find(".mp4")+4])
+
+subprocess.call(["rm","-rf","temp.egghead"])
